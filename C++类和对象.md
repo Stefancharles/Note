@@ -129,6 +129,7 @@ int main( )
 |public继承|public|protected|private|
 |protected继承|protected|protected|private|
 |privae继承|private|private|private|
+
 总之：
 * private成员只能被本类和友元访问，派生类不能访问它；
 * protected成员可以被派生类访问。
