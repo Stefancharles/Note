@@ -123,11 +123,14 @@ int main( )
 父类Box派生一个子类SmallBox，width可以被派生出的子类的任意成员函数访问。
 # 继承的特点
 有三种继承方式，他们相应的改变了基类成员的访问属性。
+
 |继承方式|基类public成员|基类protected成员|基类private成员|
+
 |:---:|:---:|:---:|:---:|
 |public继承|public|protected|private|
 |protected继承|protected|protected|private|
 |privae继承|private|private|private|
+
 总之：
 * private成员只能被本类和友元访问，派生类不能访问它；
 * protected成员可以被派生类访问。
