@@ -132,3 +132,56 @@ int main()
 ![1234.png](https://i.loli.net/2019/08/04/awXDScWJbsn561q.png)
 
 对于析构来说，先析构临时的C对象，再析构test对象。
+
+## 2.对象以值传递的方式从函数返回
+```c++
+class CExample 
+{
+private:
+ int a;
+
+public:
+ //构造函数
+ CExample(int b)
+ { 
+  a = b;
+ }
+
+ //拷贝构造
+ CExample(const CExample& C)
+ {
+  a = C.a;
+  cout<<"copy"<<endl;
+ }
+
+void Show ()
+ {
+  cout<<a<<endl;
+ }
+};
+
+//全局函数
+CExample g_Fun()
+{
+ CExample temp(0);
+ return temp;
+}
+
+int main()
+{
+ g_Fun();
+ return 0;
+}
+```
+当g_Fun()函数执行到return时，会产生以下几个重要步骤：
+* (1). 先会产生一个临时对象名为C。
+* (2). 然后调用拷贝构造函数把temp的值给C。整个这两个步骤有点像：CExample C(temp);
+* (3). 在函数执行到最后先析构temp局部变量。
+* (4). 等g_Fun()执行完后再析构掉对象C。
+
+## 3.某对象需要另外一个对象进行初始化
+```c++
+CExample A(100);
+CExample B = A; // CExample B(A); 
+```
+# 浅拷贝和深拷贝
