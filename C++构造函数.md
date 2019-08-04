@@ -128,3 +128,51 @@ C::C( double a, double b, double c): X(a), Y(b), Z(c)
 * 析构函数没有返回类型，没有参数
 * 没有参数，所以不能重载，也就是说一个类只有一个析构函数
 * 析构函数除了释放工作，还可以做一些用户希望它做的一些工作，比如输出一些信息。
+```c++
+#include <iostream>
+ 
+using namespace std;
+ 
+class Line
+{
+   public:
+      void setLength( double len );
+      double getLength( void );
+      Line();   // 这是构造函数声明
+      ~Line();  // 这是析构函数声明
+ 
+   private:
+      double length;
+};
+ 
+// 成员函数定义，包括构造函数
+Line::Line(void)
+{
+    cout << "Object is being created" << endl;
+}
+Line::~Line(void)
+{
+    cout << "Object is being deleted" << endl;
+}
+ 
+void Line::setLength( double len )
+{
+    length = len;
+}
+ 
+double Line::getLength( void )
+{
+    return length;
+}
+// 程序的主函数
+int main( )
+{
+   Line line;
+ 
+   // 设置长度
+   line.setLength(6.0); 
+   cout << "Length of line : " << line.getLength() <<endl;
+ 
+   return 0;
+}
+```
