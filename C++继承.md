@@ -37,3 +37,85 @@ class derived-class: access-specifier base-class
 * 公有继承（public）：当一个类派生自公有基类时，基类的公有成员也是派生类的公有成员，基类的保护成员也是派生类的保护成员，基类的私有成员不能直接被派生类访问，但是可以通过调用基类的公有和保护成员来访问。
 * 保护继承（protected）： 当一个类派生自保护基类时，基类的公有和保护成员将成为派生类的保护成员。
 * 私有继承（private）：当一个类派生自私有基类时，基类的公有和保护成员将成为派生类的私有成员。
+
+# 多继承
+多继承即一个子类可以有多个父类，它继承了多个父类的特性。
+
+C++ 类可以从多个类继承成员，语法如下：
+```c
+class <派生类名>:<继承方式1><基类名1>,<继承方式2><基类名2>,…
+{
+<派生类类体>
+};
+```
+其中，访问修饰符继承方式是 public、protected 或 private 其中的一个，用来修饰每个基类，各个基类之间用逗号分隔。
+
+例子：
+```c
+#include <iostream>
+ 
+using namespace std;
+ 
+// 基类 Shape
+class Shape 
+{
+   public:
+      void setWidth(int w)
+      {
+         width = w;
+      }
+      void setHeight(int h)
+      {
+         height = h;
+      }
+   protected:
+      int width;
+      int height;
+};
+ 
+// 基类 PaintCost
+class PaintCost 
+{
+   public:
+      int getCost(int area)
+      {
+         return area * 70;
+      }
+};
+ 
+// 派生类
+class Rectangle: public Shape, public PaintCost
+{
+   public:
+      int getArea()
+      { 
+         return (width * height); 
+      }
+};
+ 
+int main(void)
+{
+   Rectangle Rect;
+   int area;
+ 
+   Rect.setWidth(5);
+   Rect.setHeight(7);
+ 
+   area = Rect.getArea();
+   
+   // 输出对象的面积
+   cout << "Total area: " << Rect.getArea() << endl;
+ 
+   // 输出总花费
+   cout << "Total paint cost: $" << Rect.getCost(area) << endl;
+ 
+   return 0;
+}
+```
+# 虚继承
+## 为什么需要虚继承
+菱形继承是多重继承中跑不掉的，Java拿掉了多重继承，辅之以接口。C++中虽然没有明确说明接口这种东西，但是只有纯虚函数的类可以看作Java中的接口。在多重继承中建议使用“接口”，来避免多重继承中可能出现的各种问题。
+
+## 虚继承概念
+虚继承是一种机制，类通过虚继承指出它希望共享虚基类的状态。对给定的虚基类，无论该类在派生层次中作为虚基类出现多少次，只继承一个共享的基类子对象，共享基类子对象称为虚基类。虚基类用virtual声明继承关系就行。
+
