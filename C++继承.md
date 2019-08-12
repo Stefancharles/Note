@@ -159,7 +159,6 @@ public:
 protected:
     int c;
 };
-
 int main()
 {
     cout << "Hello World!" << endl;
