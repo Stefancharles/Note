@@ -118,4 +118,54 @@ int main(void)
 
 ## 虚继承概念
 虚继承是一种机制，类通过虚继承指出它希望共享虚基类的状态。对给定的虚基类，无论该类在派生层次中作为虚基类出现多少次，只继承一个共享的基类子对象，共享基类子对象称为虚基类。虚基类用virtual声明继承关系就行。
+```c
+#include <iostream>
+
+using namespace std;
+//基类
+
+class D
+{
+public:
+    D(){cout<<"D()"<<endl;}
+    ~D(){cout<<"~D()"<<endl;}
+protected:
+    int d;
+};
+
+class B:virtual public D
+{
+public:
+    B(){cout<<"B()"<<endl;}
+    ~B(){cout<<"~B()"<<endl;}
+protected:
+    int b;
+};
+
+class A:virtual public D
+{
+public:
+    A(){cout<<"A()"<<endl;}
+    ~A(){cout<<"~A()"<<endl;}
+protected:
+    int a;
+};
+
+class C:public B, public A
+{
+public:
+    C(){cout<<"C()"<<endl;}
+    ~C(){cout<<"~C()"<<endl;}
+protected:
+    int c;
+};
+
+int main()
+{
+    cout << "Hello World!" << endl;
+    C c;   //D, B, A ,C
+    cout<<sizeof(c)<<endl;
+    return 0;
+}
+```
 
